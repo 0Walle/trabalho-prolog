@@ -9,14 +9,12 @@ inserir([Y|YS],X,I,[Y|K]) :-
     I2 is I-1,
     inserir(YS,X,I2,K).
 
-/*
-Logica para c)
-
-remover em qualquer index de [] => []
-remover o index 1 de [Y | YS] => YS
-remover o index I de [Y | YS] => [Y | K]
-  onde K é remover o index I-1 de YS
-*/
+% c)
+remover([], _, []).
+remover([_ | YS], 1, YS).
+remover([Y | YS], I, [Y | K]) :-
+    I2 is I - 1,
+    remover(YS, I2, K).
 
 % d)
 potencia(A,B,X) :-  X is A^B.
