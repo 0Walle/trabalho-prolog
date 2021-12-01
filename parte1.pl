@@ -40,3 +40,19 @@ Logica para init (usado em e)
 [] é o init em [Y]
 o init em [Y | YS] é [Y | init de YS]
 */
+
+%Código
+palindromo([]).
+palindromo([X]).
+palindromo([Y | YS]) :-
+ultimo(YS,Y),
+init(YS, I),
+palindromo(I).
+
+ultimo([],[]).
+ultimo([Y],Y).
+ultimo([Y | YS], S) :- ultimo(YS, S).
+
+init([],[]).
+init([Y],[]).
+init([Y | YS],[Y|S]) :- init(YS, S).
