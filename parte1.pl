@@ -12,10 +12,10 @@ inserir([Y|YS],X,I,[Y|K]) :-
 /*
 Logica para c)
 
-remover X em qualquer index de [] => []
-remover X no index 1 de [Y | YS] => YS
-remover X no index I de [Y | YS] => [Y | K]
-  onde K é remover de YS no index I-1
+remover em qualquer index de [] => []
+remover o index 1 de [Y | YS] => YS
+remover o index I de [Y | YS] => [Y | K]
+  onde K é remover o index I-1 de YS
 */
 
 % d)
