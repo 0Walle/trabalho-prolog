@@ -13,7 +13,7 @@ inserir([Y|YS],X,I,[Y|K]) :-
 Logica para c)
 
 remover X em qualquer index de [] => []
-remover X no index 1 de [Y | YS] e X é Y => YS
+remover X no index 1 de [Y | YS] => YS
 remover X no index I de [Y | YS] => [Y | K]
   onde K é remover de YS no index I-1
 */
