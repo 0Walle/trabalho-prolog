@@ -1,0 +1,31 @@
+arco(a, b, 3).
+arco(a, d, 5).
+arco(b, d, 2).
+arco(a, c, 4).
+arco(d, c, 4).
+arco(c, f, 5).
+arco(d, e, 2).
+arco(e, f, 2).
+
+conectado(X, Y, C) :- arco(X, Y, C) ; arco(Y, X, C).
+
+caminho(R, S, C, [R, S]) :- conectado(R, S, C).
+
+no_membro([], _).
+no_membro([Y | YS], X) :-
+    X \== Y,
+    no_membro(YS, X).
+
+% S tá no caminho R-S se S é conectado com R
+viagem(R, S, C, P, [S | P]) :- conectado(R, S, C).
+
+% T tá do caminho R-S se
+%   T não está em visitado
+%   T é diferente de S
+%   T é conectado com R
+%   viagem(T, R, C, [T | V], P)
+viagem(R, S, C, V, P) :-
+    conectado(R, T, _),
+    T \== S,
+    no_membro(V, T),
+    viagem(T, S, C, [T | V], P).
