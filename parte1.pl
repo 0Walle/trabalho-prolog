@@ -1,58 +1,58 @@
-% a)
+% == Predicado a) ==
+% X no fim de [] é [X]
 acrescentar([],X,[X]).
+% X no fim de [Y|YS] é [Y | X no fim de YS]
 acrescentar([Y|YS],X,[Y|K]) :- acrescentar(YS,X,K).
 
-% b)
-inserir([],X,I,[X]).
+% == Predicado b) ==
+% X em qualquer index de [] é [X]
+inserir([],X,_,[X]).
+% X no index 1 de [Y|YS] é [X,Y|YS]
 inserir([Y|YS],X,1,[X,Y|YS]).
+% X no index I de [Y|YS] é [Y| X no index I-1 de YS]
 inserir([Y|YS],X,I,[Y|K]) :-
     I2 is I-1,
     inserir(YS,X,I2,K).
 
-% c)
+% == Predicado c) ==
+% [] sem qualquer index é []
 remover([], _, []).
+% [Y|YS] sem o index 1 é YS
 remover([_ | YS], 1, YS).
+% [Y|YS] sem o index I é [Y|YS sem index I-1]
 remover([Y | YS], I, [Y | K]) :-
     I2 is I - 1,
     remover(YS, I2, K).
 
-% d)
+% == Predicado d) ==
+% X é A elevado a B
 potencia(A,B,X) :-  X is A^B.
 
-/*
-Logica para e)
-
-[] é palindromo
-[X] é palindromo
-[Y | YS] é palindromo se
-  Y é ultimo de YS
-  e tudo "antes do ultimo de YS" (o nome disso é init) é palindromo
-
-Logica para ultimo (usado em e)
-
-[] é o ultimo em []
-Y é o ultimo em [Y]
-o ultimo em [Y | YS] é o ultimo de YS
-
-Logica para init (usado em e)
-
-[] é o init em []
-[] é o init em [Y]
-o init em [Y | YS] é [Y | init de YS]
-*/
-
-%Código
+% == Predicado e) ==
+% [] é palindromo
 palindromo([]).
-palindromo([X]).
+% [X] é palindromo
+palindromo([_]).
+% [Y|YS] é palindromo se
+%    primeiro e ultimo de YS são iguais
+%    o restante de YS tambem é palindromo
 palindromo([Y | YS]) :-
-ultimo(YS,Y),
-init(YS, I),
-palindromo(I).
+    ultimo(YS,Y),
+    restante(YS, I),
+    palindromo(I).
 
+
+% == Auxiliares da e) ==
+% ultimo de [] é []
 ultimo([],[]).
+% ultimo de [Y] é Y
 ultimo([Y],Y).
-ultimo([Y | YS], S) :- ultimo(YS, S).
+% ultimo de [Y|YS] é o ultimo de YS
+ultimo([_ | YS], S) :- ultimo(YS, S).
 
-init([],[]).
-init([Y],[]).
-init([Y | YS],[Y|S]) :- init(YS, S).
+% restante de [] é []
+restante([],[]).
+% restante de [Y] é []
+restante([_],[]).
+% restante de [Y|YS] é [Y|restante de YS]
+restante([Y | YS],[Y|S]) :- restante(YS, S).
